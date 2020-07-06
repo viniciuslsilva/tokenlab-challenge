@@ -1,32 +1,18 @@
 package br.com.tokenlab.challenge.exception;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ErrorDetails {
+    @JsonProperty
     protected String title;
+    @JsonProperty
     protected int status;
+    @JsonProperty
     protected String detail;
+    @JsonProperty
     protected long timestamp;
+    @JsonProperty
     protected String developerMessage;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public String getDeveloperMessage() {
-        return developerMessage;
-    }
-
 
     public static final class Builder {
         protected String title;
