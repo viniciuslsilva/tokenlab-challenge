@@ -52,10 +52,6 @@ public class Event {
         return dateEnd;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void update(EventDTO eventDTO) {
         this.description = eventDTO.getDescription();
         this.dateStart = eventDTO.getDateStart();

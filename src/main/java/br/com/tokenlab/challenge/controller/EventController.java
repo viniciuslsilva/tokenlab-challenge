@@ -59,6 +59,4 @@ public class EventController {
         eventService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }
