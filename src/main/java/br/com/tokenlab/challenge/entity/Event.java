@@ -1,7 +1,10 @@
 package br.com.tokenlab.challenge.entity;
 
+import br.com.tokenlab.challenge.dto.EventDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -16,11 +19,11 @@ public class Event {
     @NotBlank
     private String description;
 
-
+    @NotNull
     @Column(name = "date_start")
     private LocalDateTime dateStart;
 
-
+    @NotNull
     @Column(name = "date_end")
     private LocalDateTime dateEnd;
 
@@ -47,5 +50,15 @@ public class Event {
 
     public LocalDateTime getDateEnd() {
         return dateEnd;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void update(EventDTO eventDTO) {
+        this.description = eventDTO.getDescription();
+        this.dateStart = eventDTO.getDateStart();
+        this.dateEnd = eventDTO.getDateEnd();
     }
 }

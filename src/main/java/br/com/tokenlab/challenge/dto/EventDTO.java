@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -17,15 +18,15 @@ public class EventDTO {
     @NotBlank
     private String description;
 
-//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateStart;
 
-//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateEnd;
 
-    public EventDTO(Long id, @NotBlank String description, LocalDateTime dateStart, LocalDateTime dateEnd) {
+    public EventDTO(Long id, @NotBlank String description, @NotNull LocalDateTime dateStart, @NotNull LocalDateTime dateEnd) {
         this.id = id;
         this.description = description;
         this.dateStart = dateStart;
@@ -43,6 +44,7 @@ public class EventDTO {
         return new Event(description, dateStart, dateEnd);
     }
 
+    @Deprecated
     public EventDTO() {
     }
 
@@ -82,13 +84,4 @@ public class EventDTO {
         return new EventDTOBuilder();
     }
 
-    @Override
-    public String toString() {
-        return "EventDTO{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", dateStart=" + dateStart +
-                ", dateEnd=" + dateEnd +
-                '}';
-    }
 }

@@ -30,7 +30,6 @@ public class EventController {
     @GetMapping("/{id}")
     public ResponseEntity<EventDTO> findById(@PathVariable("id") Long id) {
         Optional<EventDTO> optionalFoundEvent = eventService.findById(id);
-
         return optionalFoundEvent.map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
@@ -39,8 +38,19 @@ public class EventController {
     public ResponseEntity<EventDTO> save(@Valid @RequestBody EventDTO eventDTO) {
         Event newEvent = eventDTO.newEvent();
         EventDTO createdEvent = eventService.save(newEvent);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
+    }
 
-        return ResponseEntity.ok(createdEvent);
+    @PutMapping("/{id}")
+    public ResponseEntity<EventDTO> update(@PathVariable("id") Long id, @Valid @RequestBody EventDTO eventDTO) {
+        EventDTO updatedEvent = eventService.update(id, eventDTO);
+        return ResponseEntity.ok(updatedEvent);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+        eventService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

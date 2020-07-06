@@ -2,6 +2,7 @@ package br.com.tokenlab.challenge.service;
 
 import br.com.tokenlab.challenge.dto.EventDTO;
 import br.com.tokenlab.challenge.entity.Event;
+import br.com.tokenlab.challenge.exception.GenericResourceException;
 import br.com.tokenlab.challenge.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,23 @@ public class EventServiceImpl implements EventService {
     @Override
     public Optional<EventDTO> findById(Long id) {
         return eventRepository.findById(id).map(EventDTO::new);
+    }
+
+    @Override
+    public EventDTO update(Long id, EventDTO eventDTO) {
+        Event foundEvent = eventRepository.findById(id)
+                .orElseThrow(() -> new GenericResourceException("Not found event with id " + id,
+                        "Not found resource in database with parameters informed"));
+        foundEvent.update(eventDTO);
+        Event updatedEvent = eventRepository.save(foundEvent);
+        return new EventDTO(updatedEvent);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Event foundEvent = eventRepository.findById(id)
+                .orElseThrow(() -> new GenericResourceException("Not found event with id " + id,
+                        "Not found resource in database with parameters informed"));
+        eventRepository.delete(foundEvent);
     }
 }
