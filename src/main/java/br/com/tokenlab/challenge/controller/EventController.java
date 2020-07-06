@@ -3,8 +3,10 @@ package br.com.tokenlab.challenge.controller;
 import br.com.tokenlab.challenge.dto.EventDTO;
 import br.com.tokenlab.challenge.entity.Event;
 import br.com.tokenlab.challenge.service.EventService;
+import br.com.tokenlab.challenge.validator.EventDateValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +21,11 @@ public class EventController {
 
     public EventController(EventService eventService) {
         this.eventService = eventService;
+    }
+
+    @InitBinder("eventDTO")
+    public void init(WebDataBinder dataBinder) {
+        dataBinder.addValidators(new EventDateValidator());
     }
 
     @GetMapping

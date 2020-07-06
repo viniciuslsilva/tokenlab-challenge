@@ -5,6 +5,7 @@ import br.com.tokenlab.challenge.entity.Event;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -19,10 +20,12 @@ public class EventDTO {
     private String description;
 
     @NotNull
+    @FutureOrPresent
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateStart;
 
     @NotNull
+    @FutureOrPresent
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateEnd;
 

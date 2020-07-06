@@ -49,6 +49,21 @@ class EventControllerIT {
     }
 
     @Test
+    void saveNewEventWithInvalidDateStart() throws Exception {
+        EventDTO eventDTO = EventDTO.builder()
+                .description("Java Week")
+                .dateStart(LocalDateTime.parse("15/04/2021 20:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .dateEnd(LocalDateTime.parse("15/03/2021 23:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .build();
+        String body = JsonUtil.asJsonString(eventDTO);
+
+        mockMvc.perform(post("/events")
+                .content(body)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void listEvents() throws Exception {
         EventDTO eventDTO = EventDTO.builder()
                 .description("Java Week")
