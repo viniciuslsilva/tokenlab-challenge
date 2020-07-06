@@ -4,8 +4,6 @@ package br.com.tokenlab.challenge.dto;
 import br.com.tokenlab.challenge.entity.Event;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;

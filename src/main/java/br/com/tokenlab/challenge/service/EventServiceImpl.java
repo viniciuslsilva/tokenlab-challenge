@@ -5,8 +5,8 @@ import br.com.tokenlab.challenge.entity.Event;
 import br.com.tokenlab.challenge.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO findById(Long id) {
-        return null;
+    public Optional<EventDTO> findById(Long id) {
+        return eventRepository.findById(id).map(EventDTO::new);
     }
 }

@@ -1,6 +1,7 @@
 package br.com.tokenlab.challenge.controller;
 
 import br.com.tokenlab.challenge.dto.EventDTO;
+import br.com.tokenlab.challenge.entity.Event;
 import br.com.tokenlab.challenge.repository.EventRepository;
 import br.com.tokenlab.challenge.util.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ class EventControllerIT {
     }
 
     @Test
-    void listEvent() throws Exception {
+    void listEvents() throws Exception {
         EventDTO eventDTO = EventDTO.builder()
                 .description("Java Week")
                 .dateStart(LocalDateTime.parse("15/04/2021 20:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
@@ -64,5 +65,28 @@ class EventControllerIT {
                 .andExpect(jsonPath("$[0].dateStart", equalTo("15/04/2021 20:00:00")))
                 .andExpect(jsonPath("$[0].dateEnd", equalTo("15/04/2021 23:00:00")))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void findEventById() throws Exception {
+        EventDTO eventDTO = EventDTO.builder()
+                .description("Java Week")
+                .dateStart(LocalDateTime.parse("15/04/2021 20:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .dateEnd(LocalDateTime.parse("15/04/2021 23:00:00", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
+                .build();
+        Event savedEvent = eventRepository.save(eventDTO.newEvent());
+
+        mockMvc.perform(get("/events/{id}", savedEvent.getId()))
+                .andExpect(jsonPath("$.id", any(Integer.class)))
+                .andExpect(jsonPath("$.description", equalToIgnoringCase("Java Week")))
+                .andExpect(jsonPath("$.dateStart", equalTo("15/04/2021 20:00:00")))
+                .andExpect(jsonPath("$.dateEnd", equalTo("15/04/2021 23:00:00")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findEventByIdWithIdNotRegistered() throws Exception {
+        mockMvc.perform(get("/events/{id}", 12345))
+                .andExpect(status().isNoContent());
     }
 }
