@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  tokenlab-challenge-app-container:
+    container_name: tokenlab-challenge
+    build: .
+    ports:
+      - "8080:8080"
