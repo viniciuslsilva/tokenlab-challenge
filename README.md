@@ -7,7 +7,6 @@ A simple project to management of events
 ## Index
 
 * [Setup](#Setup)
-* [Run Application](#Run Application)
 
 ## Setup
 ### Requirements
@@ -21,7 +20,7 @@ A simple project to management of events
 [Java 11](https://www.oracle.com/technetwork/java/javase/overview/index.html)   
 [Maven 3.x](https://maven.apache.org/install.html)
 
-## Run Application
+### Run Application
 
 ##### Clone source code from git
 ```
@@ -46,7 +45,7 @@ $ docker run -p 8080:8080 -it --rm tokenlab-challenge
 docker stop `docker container ls | grep "tokenlab-challenge:*" | awk '{ print $1 }'`
 ```
 
-## Run with docker-compose 
+##### Run with docker-compose 
 
 Build and start the container by running 
 
